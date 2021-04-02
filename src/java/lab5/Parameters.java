@@ -1,4 +1,3 @@
-
 package lab5;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-
 
 @Entity
 @Table(name = "PARAMETERS")
@@ -101,5 +99,4 @@ public class Parameters implements Serializable {
     public String toHtmlString() {
         return "<li>lab5.Parameters[" + name + " - " + num + "] </li>";
     }
-    
 }

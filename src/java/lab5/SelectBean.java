@@ -7,9 +7,6 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class SelectBean {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
     
     @EJB
     private ParametersFacade parametersFacade;

@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewList extends HttpServlet {
 
     @EJB
+    private Attribute attribute;
+
+    @EJB
     private SelectBean selectBean;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,31 +24,57 @@ public class ViewList extends HttpServlet {
         
         int k = selectBean.count();
         List<Parameters> lp = selectBean.findAll();
-        
-        if(request.getParameter("action").equals("findByRange")){
-            //нажата кнопка findByRange - получить по диапазону значения из бызы
-        }
-        
-        String byRange = selectBean.findByRange(50, 100);
-        
+
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
+            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
             out.println("<title>Servlet ViewList</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewList , numbers of records =  " + k + "</h1>");
-            out.println("<h1>Список параметров</h1><ul>");
+                //===========================================================================================
+                out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
+                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                        out.println("<a href=\"Registrator\">Новый параметр</a>");
+                    out.println("</div>");
+                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                        out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
+                    out.println("</div>");
+                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                        out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
+                    out.println("</div>");
+                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                        out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
+                    out.println("</div>");
+                out.println("</div>");
+            //===========================================================================================  
+            out.println("<h1>Servlet ViewList</h1>");
+            out.println("<p1>Количество записей =  " + k + "</p1>");
+            
+            out.println("<br/>");
+            out.println("<p1>Список параметров:</p1><ul>");
              for(Parameters p : lp){
                  out.println(p.toHtmlString());
              }
             out.println("</ul>");
+            out.println("<br/>");
             
-            out.println("<h1>Список параметров в диапазоне 50-100</h1>" + byRange);
+            if(request.getParameter("action").equals("findByRange")){
+                List<Parameters> list = attribute.getList();
+            //нажата кнопка findByRange - получить по диапазону значения из бaзы
+            try{
+                int from = Integer.parseInt(request.getParameter("from"));
+                int to = Integer.parseInt(request.getParameter("to"));
+                String byRange = selectBean.findByRange(from, to);
+                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
+            }catch(NumberFormatException e){
+                String byRange = selectBean.findByRange(0, list.size()-1);
+                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
+            }
             
-            out.println("<h1>Servlet ViewList , numbers of records =  " + k + "</h1>");
+        }
+            
             out.println("</body>");
             out.println("</html>");
         }

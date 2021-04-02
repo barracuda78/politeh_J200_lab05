@@ -1,4 +1,3 @@
-
 package lab5;
 
 import java.util.List;
@@ -7,10 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author ENVY
- */
 @Stateless
 public class ParametersFacade extends AbstractFacade<Parameters> {
 
@@ -43,7 +38,4 @@ public class ParametersFacade extends AbstractFacade<Parameters> {
         
         return sb.toString();
     }
-    
-    
-    
 }

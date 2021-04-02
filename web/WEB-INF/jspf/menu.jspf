@@ -1,17 +1,25 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<div style="height:120px; border: 2px blue solid">
-    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+<div style="height:40px; border: 1px orangered solid; margin-top: 3px">
+    <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px">
         <a href="Registrator">Новый параметр</a>
     </div>
-    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+    <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px">
         <a href="ViewList?action=findAll">Показать все</a>
     </div>
-    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+    <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px">
         <a href="ViewList?action=findByName">Поиск по шаблону</a>
     </div>
-    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+    <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 540px; margin: 3px">
         <a href="ViewList?action=findByRange">Поиск по диапазону</a>
+        <form action="ViewList" method="GET">
+            <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px">
+                <input type="text" name="from" value="" placeholder="type from value..." class="t1"/>
+            </div>
+            <div style="float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px">
+                <input type="text" name="to" value="" placeholder="type to value..." class="t1"/>
+            </div>    
+        </form>
     </div>
 </div>
 

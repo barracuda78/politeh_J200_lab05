@@ -1,0 +1,17 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div style="height:120px; border: 2px blue solid">
+    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+        <a href="Registrator">Новый параметр</a>
+    </div>
+    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+        <a href="ViewList?action=findAll">Показать все</a>
+    </div>
+    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+        <a href="ViewList?action=findByName">Поиск по шаблону</a>
+    </div>
+    <div style="float:left; border: 1px blue outset; background-color: yellow; text-align: center; height:80px; width: 180px; margin: 3px">
+        <a href="ViewList?action=findByRange">Поиск по диапазону</a>
+    </div>
+</div>
+

@@ -5,10 +5,15 @@
         <group>
             <file>file:/D:/coding/politeh/j200Lab5/web/index.jsp</file>
             <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/Attribute.java</file>
+            <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/AbstractFacade.java</file>
             <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/Registrator.java</file>
             <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/SelectBean.java</file>
+            <file>file:/D:/coding/politeh/j200Lab5/web/info.jsp</file>
+            <file>file:/D:/coding/politeh/j200Lab5/web/css/style01.css</file>
             <file>file:/D:/coding/politeh/j200Lab5/web/WEB-INF/jspf/menu.jspf</file>
             <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/ViewList.java</file>
+            <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/UpdateBean.java</file>
+            <file>file:/D:/coding/politeh/j200Lab5/src/java/lab5/ParametersFacade.java</file>
         </group>
     </open-files>
 </project-private>

@@ -53,7 +53,7 @@ public class Registrator extends HttpServlet {
             out.println("<h1><center>Servlet Registrator: </center></h1>");
             String name = request.getParameter("name");
             
-            if(name.length() > 255 || name.isEmpty()){
+            if( name != null && (name.length() > 255 || name.isEmpty())){
                 out.println("<p1><center>Имя параметра пустое или превышает длину 255 символa.</center></p1>");
             }
             

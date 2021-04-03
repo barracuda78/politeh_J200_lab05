@@ -22,4 +22,8 @@ public class SelectBean {
     public String findByRange(int a, int b){
         return parametersFacade.findByRange(a, b);
     }
+    
+    public void edit(Parameters parameter) {
+        parametersFacade.edit(parameter);
+    }
 }

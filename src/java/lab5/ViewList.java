@@ -21,81 +21,115 @@ public class ViewList extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        int k = selectBean.count();
-        List<Parameters> lp = selectBean.findAll();
 
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
-            out.println("<title>Servlet ViewList</title>");            
-            out.println("</head>");
-            out.println("<body>");
-                //===========================================================================================
-                out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"Registrator\">Новый параметр</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
-                    out.println("</div>");
-                out.println("</div>");
+
+            int k = selectBean.count();
+            List<Parameters> lp = selectBean.findAll();
+
+            //если заданы параметры from и to, то пытаемся их прочитать:
+            if (request.getParameter("from") != null && request.getParameter("to") != null) {
+                try {
+                    int from = Integer.parseInt(request.getParameter("from"));
+                    int to = Integer.parseInt(request.getParameter("to"));
+                } catch (NumberFormatException e) {
+                    printHtmlHeader(out);
+                    printHtmlHeaderWithoutFindByRange(out); 
+                    out.println("<p1>Введенные значения не могут быть преобразованы к числам.</p1>");
+                    out.println("<br/>");
+                    out.println("<br/>");
+                    out.println("<p1><a href=\"info.jsp\"/>Назад к вводу значений from и to</a></p1>");
+                    printHtmlEnd(out);
+                    return;
+                }
+            }
+
+            printHtmlHeader(out);
+            //===========================================================================================
+            printHtmlHeaderWithoutFindByRange(out);    
             //===========================================================================================  
             out.println("<h1>Servlet ViewList</h1>");
             out.println("<p1>Количество записей =  " + k + "</p1>");
-            
+
             out.println("<br/>");
             out.println("<p1>Список параметров:</p1><ul>");
-             for(Parameters p : lp){
-                 out.println(p.toHtmlString());
-             }
+            for (Parameters p : lp) {
+                out.println(p.toHtmlString());
+            }
             out.println("</ul>");
             out.println("<br/>");
-            
-            if(request.getParameter("action").equals("findByRange")){
+
+            if (request.getParameter("action").equals("findByRange")) {
                 List<Parameters> list = attribute.getList();
-            //нажата кнопка findByRange - получить по диапазону значения из бaзы
-            try{
-                int from = Integer.parseInt(request.getParameter("from"));
-                int to = Integer.parseInt(request.getParameter("to"));
-                String byRange = selectBean.findByRange(from, to);
-                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
-            }catch(NumberFormatException e){
-                String byRange = selectBean.findByRange(0, list.size()-1);
-                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
+                //нажата кнопка findByRange - получить по диапазону значения из бaзы
+                //отправить на index.jsp -> кнопку для диапазона и два поля ограничителей диапазона.
+                request.setAttribute("menuItem", "menuFindByRange");
+                request.getRequestDispatcher("info.jsp").forward(request, response);
+
+//            try{
+//                int from = Integer.parseInt(request.getParameter("from"));
+//                int to = Integer.parseInt(request.getParameter("to"));
+//                String byRange = selectBean.findByRange(from, to);
+//                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
+//            }catch(NumberFormatException e){
+//                String byRange = selectBean.findByRange(0, list.size()-1);
+//                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
+//            }
             }
-            
-        }
-            
+//            else if(){
+//                
+//            }
+
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
-
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+
+    private void printHtmlHeader(PrintWriter out) {
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
+        out.println("<title>Servlet ViewList</title>");
+        out.println("</head>");
+        out.println("<body>");
+    }
+
+    private void printHtmlEnd(PrintWriter out) {
+        out.println("</body>");
+        out.println("</html>");
+    }
+
+    private void printHtmlHeaderWithoutFindByRange(PrintWriter out) {
+        out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
+            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                out.println("<a href=\"Registrator\">Новый параметр</a>");
+                out.println("</div>");
+                out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                    out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
+                out.println("</div>");
+                out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                    out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
+                out.println("</div>");
+                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
+                out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
+            out.println("</div>");
+        out.println("</div>");
     }
 
 }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ViewList", urlPatterns = {"/ViewList"})
-public class ViewList extends HttpServlet {
+public class ViewList extends HttpServlet implements HtmlRenderable{
 
     @EJB
     private Attribute attribute;
@@ -63,6 +62,28 @@ public class ViewList extends HttpServlet {
                     return;
                 }
             }
+            
+            //если задан параметр regex для findByName, то пытаемся его прочитать:
+            if (request.getParameter("regexButton") != null && request.getParameter("regex") != null) {
+
+                    String regexString = request.getParameter("regex");
+                    //если параметры соответствуют регулярке:
+                    if (null != lp && regexString.length() > 0) {
+                        
+                        List<Parameters> trimmedList2 = new ArrayList<>();
+                        for(Parameters p : lp){
+                            if(p.getName().matches(regexString))    
+                                trimmedList2.add(p);
+                        }
+                        System.out.println("Это сервлет ViewList и список trimmedList2 = " + trimmedList2);
+                        request.setAttribute("trimmedList2", trimmedList2);
+                        request.getRequestDispatcher("info.jsp").forward(request, response);
+                        System.out.println("мы побывали тут ViewList: regex and null != lp");
+                    }else{
+                        out.println("<p>Указано некорректное регулярное выражение для поиска.<p>");
+                        System.out.println("lp = " + lp);
+                    }
+            }
 
             printHtmlHeader(out);
             //===========================================================================================
@@ -77,20 +98,15 @@ public class ViewList extends HttpServlet {
                 //отправить на index.jsp -> кнопку для диапазона и два поля ограничителей диапазона.
                 request.setAttribute("menuItem", "menuFindByRange");
                 request.getRequestDispatcher("info.jsp").forward(request, response);
-                
-//            try{
-//                int from = Integer.parseInt(request.getParameter("from"));
-//                int to = Integer.parseInt(request.getParameter("to"));
-//                String byRange = selectBean.findByRange(from, to);
-//                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
-//            }catch(NumberFormatException e){
-//                String byRange = selectBean.findByRange(0, list.size()-1);
-//                out.println("<p1>Список <strong>всех</strong> параметров:</p1>" + byRange);
-//            }
             }
-//            else if(){
-//                
-//            }
+            
+            if (request.getParameter("action") != null && request.getParameter("action").equals("findByName") && request.getParameter("regex") == null) {
+                System.out.println("мы побывали тут ViewList: action = findByName and request.getParameter(\"regex\") == null");
+                //нажата кнопка findByName - получить по регулярке значения из бaзы
+                //отправить на index.jsp -> кнопку для диапазона и поле регулярки.
+                request.setAttribute("menuItem2", "menuFindByName");
+                request.getRequestDispatcher("info.jsp").forward(request, response);
+            }
 
 
             out.println("<p1>Количество записей =  " + k + "</p1>");
@@ -122,37 +138,4 @@ public class ViewList extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
-    private void printHtmlHeader(PrintWriter out) {
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
-        out.println("<title>Servlet ViewList</title>");
-        out.println("</head>");
-        out.println("<body>");
-    }
-
-    private void printHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
-
-    private void printHtmlHeaderWithoutFindByRange(PrintWriter out) {
-        out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"Registrator\">Новый параметр</a>");
-            out.println("</div>");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
-            out.println("</div>");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
-            out.println("</div>");
-//            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-//                out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
-//            out.println("</div>");
-        out.println("</div>");
-    }
-
 }

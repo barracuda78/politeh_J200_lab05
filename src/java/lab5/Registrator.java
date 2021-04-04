@@ -10,15 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "Registrator", urlPatterns = {"/Registrator"})
-public class Registrator extends HttpServlet {
+public class Registrator extends HttpServlet implements HtmlRenderable{
 
     @EJB
     private Attribute attribute;
 
     @EJB
     private UpdateBean updateBean;
-    
-    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,29 +25,9 @@ public class Registrator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
-            out.println("<title>Servlet Registrator</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            //===========================================================================================
-                out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"Registrator\">Новый параметр</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
-                    out.println("</div>");
-                    out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                        out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
-                    out.println("</div>");
-                out.println("</div>");
-            //===========================================================================================    
+            printHtmlHeader(out);
+            printHtmlHeaderFull(out);
+            
             out.println("<h1><center>Servlet Registrator: </center></h1>");
             String name = request.getParameter("name");
             
@@ -74,52 +52,30 @@ public class Registrator extends HttpServlet {
             }catch(NumberFormatException e){
                 out.println("<p1><center>Значение параметра не может быть корректно преобразовано к типу int.</center></p1>");
             }
-            out.println("<br>");
-            out.println("<br>");
-            out.println("<br>");
-            out.println("<br>");
-            out.println("<p1><center><a href=\"index.jsp\">Перейти на страницу ввода данных</a></center></p1>");
-            out.println("</body>");
-            out.println("</html>");
+            
+            printHtmlFooter(out);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //processRequest(request, response);
-        doGet(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            printHtmlHeader(out);
+            out.println("<h1><center>Servlet Registrator: </center></h1>");
+            if(request.getParameter("deleteAll") != null){
+                //удалить все из БД с помощью бина:
+                out.println("<p>ты типа всё удалил... Ага...</p>");
+                updateBean.deleteAll();
+                printHtmlFooter(out);
+            }
+        }
     }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }
-    
-    //    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        request.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html;charset=UTF-8");
-//        
-//        //InitialContext ctx = (InitialContext)this.getServletContext();
-//        
-//        String name = request.getParameter("name");
-//        int num = Integer.parseInt(request.getParameter("num"));
-//        
-//        
-//        Parameters p = new Parameters(name, num); 
-//        
-//        updateBean.addParameter(p);
-//                
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet Registrator</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet Registrator at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-//    }
 }

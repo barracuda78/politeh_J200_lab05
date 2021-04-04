@@ -26,6 +26,4 @@ public class Attribute {
     public List<Parameters> getList() {
         return list = selectBean.findAll();
     }
-    
-    
 }

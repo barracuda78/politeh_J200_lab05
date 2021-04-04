@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ViewList", urlPatterns = {"/ViewList"})
-public class ViewList extends HttpServlet {
+public class ViewList extends HttpServlet implements HtmlRenderable{
 
     @EJB
     private Attribute attribute;
@@ -138,37 +138,4 @@ public class ViewList extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
-    private void printHtmlHeader(PrintWriter out) {
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style01.css\"/>");
-        out.println("<title>Servlet ViewList</title>");
-        out.println("</head>");
-        out.println("<body>");
-    }
-
-    private void printHtmlEnd(PrintWriter out) {
-        out.println("</body>");
-        out.println("</html>");
-    }
-
-    private void printHtmlHeaderWithoutFindByRange(PrintWriter out) {
-        out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"Registrator\">Новый параметр</a>");
-            out.println("</div>");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
-            out.println("</div>");
-            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"ViewList?action=findByName\">Поиск по шаблону</a>");
-            out.println("</div>");
-//            out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-//                out.println("<a href=\"ViewList?action=findByRange\">Поиск по диапазону</a>");
-//            out.println("</div>");
-        out.println("</div>");
-    }
-
 }

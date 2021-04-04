@@ -43,7 +43,16 @@
         </table>
         </div>
         </div>    
-            </form>
-
+        </form>
+        
+        <!-- ФОРМА ДЛЯ КНОПКИ: DELETE -->
+        <form action="Registrator" method="POST">
+            <div class="container">
+                <div class="box-1">    
+                    <td colspan="2"><input type="submit" name="deleteAll" value="DELETE ALL FROM DB" class="b2"/></td>
+                </div>
+            </div>    
+        </form>
+        <!-- КОНЕЦ ФОРМы ДЛЯ КНОПКИ: DELETE -->
     </body>
 </html>

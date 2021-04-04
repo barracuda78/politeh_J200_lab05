@@ -18,7 +18,7 @@ public class UpdateBean {
             parametersFacade.create(parameter);
             return 1;
         }else{
-            //если нашёл его - обновить ему параметр.
+            //если нашёл его - обновить ему значение..
             System.out.println("-----------------------p != null");
             parametersFacade.edit(parameter);
             return 2;

@@ -6,7 +6,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Parameter info</title>
-        <!--link rel="stylesheet" type="text/css" href="styles.css"-->
         <link rel="stylesheet" type="text/css" href="css/style01.css"/>
     </head>
     <body>

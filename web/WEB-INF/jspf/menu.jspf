@@ -1,4 +1,3 @@
-<%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 <div style="float:center; height:40px; border: 1px orangered solid; margin-top: 3px; border-radius: 10px; margin-left: 3px;">
     <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; padding-left: 20 px; margin: 3px">
@@ -12,10 +11,6 @@
     </div>
     <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; margin: 3px">
         <a href="ViewList?action=findByRange">Поиск по диапазону</a>
-        <%
-        System.out.println("нажат поиск по диапазону на menu.jspf");
-        %>
-        <!--input type="text" name="to" value="" placeholder="type to value..." class="t1"/-->
     </div>
 </div>
 

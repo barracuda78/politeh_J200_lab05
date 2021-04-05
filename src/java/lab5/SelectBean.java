@@ -23,6 +23,10 @@ public class SelectBean {
         return parametersFacade.findByRange(a, b);
     }
     
+    public String findBySqlRegex(String sqlRegex){
+        return parametersFacade.findBySqlRegex(sqlRegex);
+    }
+    
     public void edit(Parameters parameter) {
         parametersFacade.edit(parameter);
     }

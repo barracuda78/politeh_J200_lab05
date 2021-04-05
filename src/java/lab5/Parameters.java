@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
       @NamedQuery(name = "Parameters.findAll", query = "SELECT p FROM Parameters p")
     , @NamedQuery(name = "Parameters.findByName", query = "SELECT p FROM Parameters p WHERE p.name = :name")
     , @NamedQuery(name = "Parameters.findByRange", query = "SELECT p FROM Parameters p WHERE p.num BETWEEN :a AND :b")  
+    , @NamedQuery(name = "Parameters.findBySqlRegex", query = "SELECT p FROM Parameters p WHERE p.name LIKE :a") 
     , @NamedQuery(name = "Parameters.findByNum", query = "SELECT p FROM Parameters p WHERE p.num = :num")})
 public class Parameters implements Serializable {
 

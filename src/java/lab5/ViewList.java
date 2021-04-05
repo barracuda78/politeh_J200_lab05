@@ -84,6 +84,22 @@ public class ViewList extends HttpServlet implements HtmlRenderable{
                         System.out.println("lp = " + lp);
                     }
             }
+            
+            //поиск по регулярке SQL
+            if (request.getParameter("sqlRegexButton") != null && request.getParameter("sqlRegex") != null) {
+
+                    String regexString = request.getParameter("sqlRegex");
+                    //если параметры соответствуют регулярке:
+
+                    if (null != lp && regexString.length() > 0) {
+                        String s = selectBean.findBySqlRegex(regexString);
+                        request.setAttribute("parametersBySqlRegex" , s);
+                        request.getRequestDispatcher("info.jsp").forward(request, response);
+                    }else{
+                        out.println("<p>Указано некорректное регулярное SQL выражение для поиска.<p>");
+                        System.out.println("lp = " + lp);
+                    }
+            }
 
             printHtmlHeader(out);
             //===========================================================================================

@@ -69,16 +69,37 @@
             System.out.println("info.jsp: menuItem2 = " + menuItem2);
         %>
         
-            <div style="float:left; height:40px; border: 1px orangered solid; margin-top: 70px; border-radius: 10px; margin-left: 250px; width: 700px; padding: 10px">
-                <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; margin-left: 30%; margin-top: 3px">
+            <div style="float:left; height:73px; border: 1px orangered solid; margin-top: 70px; border-radius: 10px; margin-left: 250px; width: 700px; padding: 10px">
+                
                     <form action="ViewList" method="GET"> 
-                        <input type="text" name="regex" value="" placeholder="type name pattern regex..." class="t1"/>
-                        <input type="submit" name="regexButton" value="Поиск по шаблону имени" class="b1"/>
+                        <table border="0" style="margin-left: 30%; margin-top: -30px">
+                            <tbody>
+                                <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 400px; margin-left: 30%; margin-top: 3px">
+                                <tr>
+                                    <td><input type="text" name="regex" value="" placeholder="type name pattern regex..." class="t1"/></td>
+                                    <td><input type="submit" name="regexButton" value="Поиск по шаблону имени в виде regex" class="b1"/></td>
+                                    <td><p style="font-size: 8px">пример: .+name.*</p></td>
+                                </tr>
+                                </div>
+                            <br>
+                                <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 400px; margin-left: 30%; margin-top: 3px">
+                                <tr>
+                                    <td><input type="text" name="sqlRegex" value="" placeholder="type name pattern sqlregex..." class="t1"/></td>
+                                    <td><input type="submit" name="sqlRegexButton" value="Поиск по шаблону имени в виде SQLregex" class="b1"/></td>
+                                    <td><p style="font-size: 8px">пример: _name%</p></td>
+                                </tr>
+                                </div>
+                            </tbody>
+                        </table>
                     </form>
-                </div>
+
             </div>
         
             <!--ПОДВАЛ:-->
+            <br>
+            <br>
+            <br>
+            <br>
             <br>
             <br>
             <br>
@@ -94,7 +115,7 @@
 
        if( (trimmedList2 = (List<Parameters>)request.getAttribute("trimmedList2")) != null){
             %>
-            <p>Список параметров по шаблону имени:</p>
+            <p>Список параметров по шаблону имени (regex):</p>
             <ul>
             <%
                 for(Parameters p : trimmedList2){
@@ -103,6 +124,19 @@
                     <%
                 }
                 System.out.println("\"trimmedList2\")) != null ");
+        }
+
+        String s = (String)request.getAttribute("parametersBySqlRegex");
+        if(s == null || s.length() == 0){
+        %>
+            <p>Параметры, соответствующие заданному sql-регулярному выражению, не найдены.<p>
+        <%        
+        }
+        else if(null != s){
+            %>
+            <p>Список параметров по шаблону имени (sqlRegex):</p>
+            <%= s %>
+        <%
         }
         %>
         </ul>

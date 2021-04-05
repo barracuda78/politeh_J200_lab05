@@ -33,7 +33,7 @@ public interface HtmlRenderable {
     default public void printHtmlHeaderWithoutFindByRange(PrintWriter out) {
         out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px\">");
             out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
-                out.println("<a href=\"Registrator\">Новый параметр</a>");
+                out.println("<a href=\"index.jsp\">Новый параметр</a>");
             out.println("</div>");
             out.println("<div style=\"float:left; border: 1px white outset; background-color: #333333; text-align: center; height:30px; width: 180px; margin: 3px\">");
                 out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");
@@ -51,7 +51,7 @@ public interface HtmlRenderable {
             //===========================================================================================
                 out.println("<div style=\"height:40px; border: 1px orangered solid; margin-top: 3px; border-radius: 10px; margin-left: 3px; padding-left: 20 px;\">");
                     out.println("<div style=\"float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; margin: 3px; padding-left: 20 px;\">");
-                        out.println("<a href=\"Registrator\">Новый параметр</a>");
+                        out.println("<a href=\"index.jsp\">Новый параметр</a>");
                     out.println("</div>");
                     out.println("<div style=\"float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; margin: 3px; padding-left: 20 px;\">");
                         out.println("<a href=\"ViewList?action=findAll\">Показать все</a>");

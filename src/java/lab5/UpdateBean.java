@@ -13,7 +13,54 @@ public class UpdateBean {
     @EJB
     private ParametersFacade parametersFacade;
     
+    @EJB
+    private Attribute attribute;
     
+    public int addParameter(String name, String number) {
+            if(name == null || name.isEmpty()){
+                //имя параметра не указано
+                 return 0;
+            }
+            if(number == null || number.isEmpty()){
+                //значение number не указано
+                 return 1;
+            }
+            
+            name = name.trim();
+            
+            if( name.isEmpty()){
+                //имя должно содержать не менее одного непробельного символа.
+                 return 2;
+            }
+            else if(name.length() > 255){
+                //слишком длинное имя
+                return 3;
+            }
+            
+            int num;
+            try{
+                num = Integer.parseInt(number);
+            }catch(NumberFormatException e){
+                //некорректное число
+                return 4;
+            }
+            
+            Parameters parameter = new Parameters(name, num);
+            //тут запилить логику - если такой есть - обновить ему значение.
+            Parameters p = parametersFacade.find(parameter.getName());
+            if(p == null){
+                System.out.println("-----------------------p == null");
+                parametersFacade.persist(parameter);   //---------------> ИВ делал так
+                parametersFacade.create(parameter);
+                attribute.addToList(parameter);
+                return 5;
+            }else{
+                //если нашёл его - обновить ему значение..
+                System.out.println("-----------------------p != null");
+                parametersFacade.edit(parameter);
+                return 6;
+            }
+    }
 
     public int addParameter(Parameters parameter) {
         if (null == parameter)
@@ -39,6 +86,8 @@ public class UpdateBean {
             return 2;
         }
     }
+    
+    
 
     //удаляет все записи из таблицы с параметрами:
     public int deleteAll() {
@@ -92,6 +141,5 @@ public class UpdateBean {
         }
         return deleted;
     }
-    
 
 }

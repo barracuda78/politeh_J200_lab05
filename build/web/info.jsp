@@ -9,7 +9,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1><center>Info jsp</center></h1>
+        <%@include file="WEB-INF/jspf/menu.jspf"%>
+        <!--h1><center>Info jsp</center></h1-->
         <%
         String menuItem = (String)request.getAttribute("menuItem");
         String menuItem2 = (String)request.getAttribute("menuItem2");
@@ -28,7 +29,7 @@
             System.out.println("info.jsp: menuItem = " + menuItem);
         %>
         
-            <div style="float:left; height:40px;width: 720px; border: 1px orangered solid; margin-top: 3px; border-radius: 10px; margin-left: 3px;">
+            <div style="float:left; height:40px;width: 720px; border: 1px orangered solid; margin-top: 3px; border-radius: 10px; margin-left: 250px; padding: 10px">
                 <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 390px; margin-left: 30%; margin-top: 3px">
                     <form action="ViewList" method="GET"> 
                         <input type="text" name="from" value="" placeholder="type from value..." class="t1"/>
@@ -37,6 +38,13 @@
                     </form>
                 </div>
             </div>
+        
+            <!--ПОДВАЛ:-->
+            <br>
+            <br>
+            <br>
+            <br>
+            <p1><center><a href="index.jsp">Перейти на страницу ввода данных</a></center></p1>
         
         <%    
         }
@@ -61,7 +69,7 @@
             System.out.println("info.jsp: menuItem2 = " + menuItem2);
         %>
         
-            <div style="float:left; height:40px; border: 1px orangered solid; margin-top: 3px; border-radius: 10px; margin-left: 3px; width: 700px">
+            <div style="float:left; height:40px; border: 1px orangered solid; margin-top: 70px; border-radius: 10px; margin-left: 250px; width: 700px; padding: 10px">
                 <div style="float:left; border: 1px white outset; border-radius: 7px; background-color: #333333; text-align: center; height:30px; width: 300px; margin-left: 30%; margin-top: 3px">
                     <form action="ViewList" method="GET"> 
                         <input type="text" name="regex" value="" placeholder="type name pattern regex..." class="t1"/>
@@ -69,6 +77,17 @@
                     </form>
                 </div>
             </div>
+        
+            <!--ПОДВАЛ:-->
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <p1><center><a href="index.jsp">Перейти на страницу ввода данных</a></center></p1>
         
         <%    
         }

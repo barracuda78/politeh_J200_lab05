@@ -87,10 +87,10 @@ public class ViewList extends HttpServlet implements HtmlRenderable{
 
             printHtmlHeader(out);
             //===========================================================================================
-            printHtmlHeaderWithoutFindByRange(out);    
+            printHtmlHeaderFull(out);   
             //===========================================================================================  
-            out.println("<h1>Servlet ViewList</h1>");
-
+            out.println("<h1><center>Servlet ViewList</center></h1>");
+            
 
             if (request.getParameter("action") != null && request.getParameter("action").equals("findByRange") && request.getParameter("from") == null && request.getParameter("to") == null) {
                 System.out.println("мы побывали тут ViewList: request.getParameter(\"from\") == null");
@@ -108,19 +108,20 @@ public class ViewList extends HttpServlet implements HtmlRenderable{
                 request.getRequestDispatcher("info.jsp").forward(request, response);
             }
 
+            out.println("<div style=\"float:center; margin-top: 3px; border-radius: 10px; margin-left: 30px;\"");
+                out.println("<p1>Количество записей =  " + k + "</p1>");
 
-            out.println("<p1>Количество записей =  " + k + "</p1>");
-
-            out.println("<br/>");
-            out.println("<p1>Список параметров:</p1><ul>");
-            for (Parameters p : lp) {
-                out.println(p.toHtmlString());
-            }
-            out.println("</ul>");
-            out.println("<br/>");
-
-            out.println("</body>");
-            out.println("</html>");
+                out.println("<br/>");
+                out.println("<p1>Список параметров:</p1><ul>");
+                for (Parameters p : lp) {
+                    out.println(p.toHtmlString());
+                }
+                out.println("</ul>");
+                out.println("<br/>");
+            out.println("<div");
+            
+            printHtmlFooter(out);
+            printHtmlEnd(out);
         }
     }
 

@@ -99,3 +99,16 @@ body{
         text-align: center;
         font-size: 1vw;
    } 
+   
+   
+/* круглые кнопки:
+   input[type="submit"]{
+  display:inline-block;
+  width:100px;
+  height:100px;
+  background: black;
+  color: red;
+  border:0 none;
+  border-radius:50%;
+}
+*/

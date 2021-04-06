@@ -43,7 +43,8 @@ public class ParametersFacade extends AbstractFacade<Parameters> {
         TypedQuery<Parameters> query = em.createNamedQuery("Parameters.findBySqlRegex", Parameters.class);
         
         List<Parameters> lp = query.setParameter("a", sqlRegex).getResultList();
-        
+        if(lp.size() == 0)
+            return "-1";
         StringBuilder sb = new StringBuilder("<ul>");
         for(Parameters p : lp){
             sb.append(p.toHtmlString());
